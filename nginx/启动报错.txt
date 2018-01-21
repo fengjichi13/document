@@ -1,0 +1,13 @@
+/usr/local/nginx/sbin/nginx -c --conf-path=/usr/local/nginx/conf/nginx.conf 
+
+然并卵，我这里不起作用。
+
+后来到/var/run下看没有nginx这个目录，会不会是这个原因，创建/var/run/nginx，再启动，搞定。
+
+重启虚拟机，这个目录会被删掉，十分操蛋。
+
+不过在nginx.conf看到被注释掉的地方：
+
+#pid logs/nginx.pid;
+
+若是在nginx下创建logs目录，再把上面的注释去掉，或许也可以，下次试试
