@@ -1,0 +1,42 @@
+mkdir /usr/local/sorl
+
+把solr的war包部署到tomcat
+
+1.cd /usr/local/sorl/solr-4.10.3/dist
+2.把solr-4.10.3.war部署到tomcat下，并改名为solr.war(非必需，为了方便)
+
+cp solr-4.10.3.war /usr/local/apache-tomcat-8.5.24/webapps/solr.war
+
+3.解压war包(启动tomcat自动解压)
+
+4.删除war包(tomcat一定要关闭。否则solr文件夹也会被tomcat删除)
+
+
+5.把/usr/local/sorl/solr-4.10.3/example/lib/ext里面的jar包复制到/usr/local/apache-tomcat-8.5.24/webapps/solr/WEB-INF/lib目录下
+
+cd /usr/local/sorl/solr-4.10.3/example/lib/ext
+cp * /usr/local/apache-tomcat-8.5.24/webapps/solr/WEB-INF/lib 
+
+
+6.创建solrhome(solrhome是存放solr服务器所以配置文件的目录)
+cd /usr/local/sorl/solr-4.10.3/example
+cp -r solr /usr/local/sorl/solrhome
+
+
+7.告诉solr服务器solrhome的位置，需要修改solr工程的web.xml文件
+cd /usr/local/apache-tomcat-8.5.24/webapps/solr/WEB-INF
+vim web.xml
+
+找到<env-entry>
+       <env-entry-name>solr/home</env-entry-name>
+       <env-entry-value>/put/your/solr/home/here</env-entry-value>
+       <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+
+修改为<env-entry>
+       <env-entry-name>solr/home</env-entry-name>
+       <env-entry-value>/usr/local/sorl/solrhome</env-entry-value>
+       <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+
+8.启动tomcat

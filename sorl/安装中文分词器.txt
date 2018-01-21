@@ -1,0 +1,65 @@
+第一步：配置IKAnalyzer的jar包
+拷贝IKAnalyzer的文件到Tomcat下Solr目录中
+将IKAnalyzer2012FF_u1.jar拷贝到 Tomcat的webapps/solr/WEB-INF/lib 下。
+命令：
+cd /usr/local/ik_analyzer_2012 
+cp IKAnalyzer2012FF_u1.jar /usr/local/apache-tomcat-8.5.24/webapps/solr/WEB-INF/lib
+
+
+
+第二步：IKAnalyzer的配置文件
+在Tomcat的webapps/solr/WEB-INF/下创建classes目录
+将IKAnalyzer.cfg.xml、ext_stopword.dic  mydict.dic  copy到 Tomcat的webapps/solr/WEB-INF/classes
+注意：ext_stopword.dic 和mydict.dic必须保存成无BOM的utf-8类型，不能使用windows记事本编辑
+
+命令：
+cd /usr/local/apache-tomcat-8.5.24/webapps/solr/WEB-INF
+mkdir classes
+
+
+cd /usr/local/ik_analyzer_2012
+cp IKAnalyzer.cfg.xml ext_stopword.dic mydict.dic /usr/local/apache-tomcat-8.5.24/webapps/solr/WEB-INF/classes
+
+
+
+第三步：修改schema.xml文件，在/usr/local/sorl/solrhome/collection1/conf目录下
+修改schema.xml文件
+修改Solr的schema.xml文件，添加FieldType：
+<fieldType name="text_ik" class="solr.TextField">
+  <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+</fieldType>
+
+
+命令：
+cd /usr/local/sorl/solrhome/collection1/conf
+vim schema.xml
+大写G跳到文档最后，跳转到文档开头gg
+添加FieldType：
+<fieldType name="text_ik" class="solr.TextField">
+  <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+</fieldType>
+
+
+
+
+第四步：设置业务系统Field(此步骤根据业务需要定义)
+cd /usr/local/sorl/solrhome/collection1/conf
+vim schema.xml
+大写G跳到文档最后，跳转到文档开头gg
+添加
+<field name="item_title" type="text_ik" indexed="true" stored="true"/>
+<field name="item_sell_point" type="text_ik" indexed="true" stored="true"/>
+<field name="item_price"  type="long" indexed="true" stored="true"/>
+<field name="item_image" type="string" indexed="false" stored="true" />
+<field name="item_category_name" type="string" indexed="true" stored="true" />
+<field name="item_desc" type="text_ik" indexed="true" stored="false" />
+
+<field name="item_keywords" type="text_ik" indexed="true" stored="false" multiValued="true"/>
+<copyField source="item_title" dest="item_keywords"/>
+<copyField source="item_sell_point" dest="item_keywords"/>
+<copyField source="item_category_name" dest="item_keywords"/>
+<copyField source="item_desc" dest="item_keywords"/>
+
+第五步：重新启动tomcat
+
+

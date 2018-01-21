@@ -1,0 +1,26 @@
+第一步
+把solrhome中的配置文件上传到zookeeper集群。使用zookeeper的客户端上传。
+客户端命令位置：/usr/local/sorl/solr-4.10.3/example/scripts/cloud-scripts
+
+命令：
+cd /usr/local/sorl/solr-4.10.3/example/scripts/cloud-scripts
+
+./zkcli.sh -zkhost 192.168.18.191:2181,192.168.18.192:2181,192.168.18.193:2181 -cmd upconfig -confdir /usr/local/sorl/solrhome/collection1/conf -confname myconf
+
+
+查看上传是否成功，随便连一个zookeeper：
+
+cd  /usr/local/zookeeper-3.4.6/bin
+./zkCli.sh
+
+查看文件夹里面是否有上传的文件：
+ls /
+
+
+第二步
+修改solrhome下的solr.xml文件，指定当前实例运行的ip地址及端口号。
+
+host修改为{host:192.168.18.201}
+hostPort修改为{jetty.port:8080}
+
+
