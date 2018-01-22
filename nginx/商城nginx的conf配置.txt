@@ -1,0 +1,143 @@
+upstream manager.shop.com 
+
+ {
+            server 192.168.18.181:8080 
+
+;
+        }
+	#配置一个虚拟主机
+	server {
+		listen 80;
+		server_name manager.shop.com 
+
+;
+		location / {
+			#域名manager.shop.com 
+
+的请求全部转发到manager.shop.com 
+
+即manager.shop.com 
+
+服务上
+			proxy_pass http://manager.shop.com 
+
+;
+			#欢迎页面，按照从左到右的顺序查找页面
+			index index.jsp index.html index.htm;
+		}
+	}
+
+
+	upstream rest.shop.com 
+
+ {
+            server 192.168.18.182:8080 
+
+;
+        }
+	#配置一个虚拟主机
+	server {
+		listen 80;
+		server_name rest.shop.com 
+
+;
+		location / {
+			#域名rest.shop.com 
+
+的请求全部转发到rest.shop.com 
+
+即rest.shop.com 
+
+服务上
+			proxy_pass http://rest.shop.com 
+
+;
+			#欢迎页面，按照从左到右的顺序查找页面
+			index index.jsp index.html index.htm;
+		}
+	}
+
+	upstream search.shop.com 
+
+ {
+            server 192.168.18.183:8080 
+
+;
+        }
+
+	server {
+		listen 80;
+		server_name search.shop.com 
+
+;
+		location / {
+			proxy_pass http://search.shop.com 
+
+;
+			#欢迎页面，按照从左到右的顺序查找页面
+			index index.jsp index.html index.htm;
+		}
+	}
+
+	upstream sso.shop.com 
+
+ {
+            server 192.168.18.184:8080 
+
+;
+        }
+	server {
+		listen 80;
+		server_name sso.shop.com 
+
+;
+		location / {
+			proxy_pass http://sso.shop.com 
+
+;
+			#欢迎页面，按照从左到右的顺序查找页面
+			index index.jsp index.html index.htm;
+		}
+	}
+
+	upstream order.shop.com 
+
+ {
+            server 192.168.18.185:8080 
+
+;
+        }
+	server {
+		listen 80;
+		server_name order.shop.com 
+
+;
+		location / {
+			proxy_pass http://order.shop.com 
+
+;
+			#欢迎页面，按照从左到右的顺序查找页面
+			index index.jsp index.html index.htm;
+		}
+	}
+
+	upstream www.shop.com 
+
+ {
+            server 192.168.18.186:8080 
+
+;
+        }
+	server {
+		listen 80;
+		server_name www.shop.com 
+
+;
+		location / {
+			proxy_pass http://www.shop.com 
+
+;
+			#欢迎页面，按照从左到右的顺序查找页面
+			index index.html index.htm;
+		}
+	}
