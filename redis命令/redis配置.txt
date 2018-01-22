@@ -1,0 +1,8 @@
+把配置文件和命令统一管
+
+cp redis.conf /usr/local/redis/etc
+
+mv mkreleasehdr.sh redis-benchmark redis-check-aof  redis-cli redis-check-dump redis-server /usr/local/redis/bin
+
+
+制定后台进程：redis.conf文件

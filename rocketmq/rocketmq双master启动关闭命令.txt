@@ -1,0 +1,33 @@
+启动NameServer，BrokerServer 
+cd /usr/local/rocketmq/bin
+两台机器：
+nohup sh mqnamesrv &
+master1：
+nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-noslave/broker-a.properties >/dev/null 2>&1 &
+master2：
+nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-noslave/broker-b.properties >/dev/null 2>&1 &
+
+
+关闭NameServer，BrokerServer
+cd /usr/local/rocketmq/bin
+# sh mqshutdown broker
+# sh mqshutdown namesrv
+--等待停止
+# rm -rf /usr/local/rocketmq/store
+# mkdir /usr/local/rocketmq/store
+# mkdir /usr/local/rocketmq/store/commitlog
+# mkdir /usr/local/rocketmq/store/consumequeue
+# mkdir /usr/local/rocketmq/store/index
+
+
+
+查看进程：
+# cd /usr/local/rocketmq/bin
+# nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-noslave/broker-a.properties >/dev/null 2>&1 &
+# netstat -ntlp
+# jps
+# tail -f -n 500 /usr/local/rocketmq/logs/rocketmqlogs/broker.log
+# tail -f -n 500 /usr/local/rocketmq/logs/rocketmqlogs/namesrv.log
+
+
+

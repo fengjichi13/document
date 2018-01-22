@@ -1,0 +1,45 @@
+/var/ftp/pub
+
+
+新建用户：
+useradd -d useradd -d /home/ftpuser -s /sbin/nologin ftpuser
+
+passwd ftpuser
+输入密码：ftpuser
+
+chown ftpuser /home/ftpuser
+
+chmod -R 755 /home/ftpuser
+
+
+
+
+
+修改配置：
+gedit /etc/vsftpd/vsftpd.conf
+
+
+anonymous_enable=NO
+#这个选项代表你禁止匿名登录
+
+chroot_local_user=YES
+#这个选项代表是否将所有用户限制在主目录
+#需要在文件中将这一选项之前的 # 去掉
+
+allow_writeable_chroot=YES
+#这个选项代表允许用户写入
+#这个需要自己手动写在最后就行了
+
+
+
+
+
+
+
+最后，顺手重启一下服务。
+
+systemctl restart vsftpd.service
+1
+如果想开机自启动的话
+
+systemctl enable vsftpd.service

@@ -1,0 +1,5 @@
+ÓÃ»§Ãûroot
+
+Root_111111
+
+mysql -u root -Root_111111

@@ -1,0 +1,17 @@
+1、创建mysql用户组及用户
+l 创建mysql用户组
+groupadd mysql
+
+2 在mysql用户组下创建mysql用户
+useradd mysql -g mysql
+
+详细参考下文
+http://blog.csdn.net/fanshujuntuan/article/details/78077433
+
+5 安装必须包
+rpm -ivh mysql-community-common-5.7.20-1.el7.x86_64.rpm
+rpm -ivh mysql-community-libs-5.7.20-1.el7.x86_64.rpm
+rpm -ivh mysql-community-client-5.7.20-1.el7.x86_64.rpm
+rpm -ivh mysql-community-server-5.7.20-1.el7.x86_64.rpm
+
+

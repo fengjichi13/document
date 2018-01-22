@@ -1,0 +1,9 @@
+- 查看当前运行的级别 
+runlevel 
+- 修改开机默认运行级别命令 
+systemctl set-default multi-user.target或graphical.target
+
+查看开机默认运行级别:
+systemctl get-default
+修改默认运行级别为图形方式:
+systemctl set-default graphical.target

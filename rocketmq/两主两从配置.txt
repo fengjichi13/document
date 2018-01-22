@@ -1,0 +1,17 @@
+进入conf文件夹：
+cd /usr/local/rocketmq/conf
+
+两主两从，异步复制：2m-2s-async
+两主两从，同步双写：2m-2s-sync
+双master：2m-noslave
+
+两主两从，异步复制：
+cd 2m-2s-async
+
+把properties文件全部用“properties配置文件”里面的数据替换，然后再各个修改
+要修改的地方：
+1.brokerName
+2.brokerId
+3.namesrvAddr：
+namesrvAddr=rocketmq-nameserver1:9876;rocketmq-nameserver2:9876;rocketmq-nameserver3:9876;rocketmq-nameserver4:9876
+4.brokerRole

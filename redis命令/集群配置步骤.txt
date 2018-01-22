@@ -1,0 +1,105 @@
+mkdir -p /usr/local/redis-cluster
+
+#copy一个新的redis.conf到redis-cluster目录下
+cp /usr/local/redis-3.0.0/redis.conf /usr/local/redis-cluster
+
+修改redis.conf配置
+gedit /usr/local/redis-cluster/redis.conf
+1.daemonize no改为daemonize yes
+2.port 6379改为port 7001
+3.绑定当前IP：bind 192.168.76.101
+4.把dbfilename dump.rdb下面的dir ./改为 dir /usr/local/redis-cluster
+5.#cluster-enabled yes改为cluster-enabled yes
+6.#cluster-config-file nodes-6379.conf 改为cluster-config-file nodes-7001.conf（跟port对上，nodes-7001.conf为集群节点自身文件）
+7.# cluster-node-timeout 15000改为cluster-node-timeout 15000
+8.appendonly no改为appendonly yes
+
+
+复制文件到其它虚拟机下面
+scp /usr/local/redis-cluster/redis.conf 192.168.76.104:/usr/local/redis-cluster
+把redis.conf下面的值改为：
+1.port改为对应的 700*（master1:7001,master2:7002,master3:7003,salve1:7004,salve2:7005,salve3:7006非固定，可随意改）
+2.绑定当前IP：bind 192.168.76.*
+3.cluster-config-file nodes-7001.conf也改为对应的cluster-config-file nodes-700*.conf
+
+需要安装ruby
+1.yum install ruby
+2.yum install rubygems
+3.gem install redis(安装redis和ruby的接口)
+
+
+启动6个redis实例
+1./usr/local/redis/bin/redis-server /usr/local/redis-cluster/redis.conf
+2.检测是否启动成功:ps -ef | grep redis
+3.netstat -tunpl | grep redis
+
+集群配置：
+replicas 1这里的1代表主节点跟从节点是1：1，前面写的3个IP地址是主节点，后面的3个是从节点
+cd /usr/local/redis-3.0.0/src/
+找到redis-trib.rb
+./redis-trib.rb create --replicas 1 192.168.18.101:7001 192.168.18.111:7002 192.168.18.121:7003 192.168.18.102:7004 192.168.18.112:7005 192.168.18.122:7006
+
+
+启动集群客户端命令：/usr/local/redis/bin/redis-cli -c -h -p port
+/usr/local/redis/bin/redis-cli -c -h 192.168.18.101 -p 7001
+（-c代表集群模式，-h代表地址，-p代表端口号）
+
+关闭集群客户端命令：/usr/local/redis/bin/redis-cli -c -h -p port shutdown
+
+
+集群添加节点命令（前一个主IP，后一个已知存在节点）
+cd /usr/local/redis-3.0.0/src/
+./redis-trib.rb add-node 192.168.76.101:7001 192.168.76.111:7002
+
+
+重新配置集群：
+cd /usr/local/redis-cluster/
+rm -f nodes*  （-f强制删除，不再询问）
+cd /usr/local/redis-3.0.0/src/
+找到redis-trib.rb
+./redis-trib.rb create --replicas 1 192.168.18.101:7001 192.168.18.111:7002 192.168.18.121:7003 192.168.18.102:7004 192.168.18.112:7005 192.168.18.122:7006
+
+
+
+出错解决办法：
+其中 gem install redis命令执行时出现了：
+
+ redis requires Ruby version >= 2.2.2的报错，查了资料发现是Centos默认支持ruby到2.0.0，可gem 安装redis需要最低是2.2.2
+
+解决办法是 先安装rvm，再把ruby版本提升至2.3.3
+
+1.安装curl
+
+sudo yum install curl
+
+2. 安装RVM
+
+curl -L get.rvm.io | bash -s stable 
+
+3. 
+
+source /usr/local/rvm/scripts/rvm
+
+4. 查看rvm库中已知的ruby版本
+
+rvm list known
+
+5. 安装一个ruby版本
+
+rvm install 2.4.1
+
+6. 使用一个ruby版本
+
+rvm use 2.4.1
+
+7. 设置默认版本
+
+rvm remove 2.0.0
+
+8. 卸载一个已知版本
+
+ruby --version
+
+9. 再安装redis就可以了
+
+gem install redis

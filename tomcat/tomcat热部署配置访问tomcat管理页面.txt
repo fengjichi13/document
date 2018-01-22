@@ -1,0 +1,26 @@
+
+管理页面地址：http://192.168.18.181:8080/manager
+
+
+配置：
+进入tomcat的conf文件夹
+cd /usr/local/apache-tomcat-8.5.24/conf
+打开tomcat-users.xml文件
+gedit tomcat-users.xml
+新增
+<role rolename="manager-gui" />
+<role rolename="manager-script" />
+<user username="tomcat" password="tomcat" roles="manager-gui,manager-script"/>
+
+
+cd /usr/local/apache-tomcat-8.5.24/conf/Catalina/localhost
+
+Tomcat8如果在上面配置的基础上，访问时会报403错误，所以需要修改，如果没有的话新建manager.xml
+
+gedit manager.xml
+
+加上内容：
+<Context privileged="true" antiResourceLocking="false"
+         docBase="${catalina.home}/webapps/manager">
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />
+</Context>

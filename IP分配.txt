@@ -5,4 +5,4 @@ imageServer:211
 shop:manager（后台管理）-181,rest（服务层）-182,search(搜索层)-183,sso(单点登录)-184,order(订单)-185,portal(主页)-186
 nginx:151
 zookeeper：1-191,2-192,3-193
-solr：1-201，2-202，3-203，4-204
+solr：1-201，2-202，3-203，4-204,single-209

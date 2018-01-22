@@ -1,0 +1,13 @@
+解决jps: command not found...问题
+
+删除openjdk
+此时可以查出openjdk相关的文件并且删除它
+rpm -qa |grep java
+
+rpm -e --nodeps python-javapackages-3.4.1-11.el7.noarch
+rpm -e --nodeps tzdata-java-2017b-1.el7.noarch
+rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.141-2.6.10.5.el7.x86_64
+rpm -e --nodeps javapackages-tools-3.4.1-11.el7.noarch
+rpm -e --nodeps java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.x86_64
+rpm -e --nodeps java-1.7.0-openjdk-1.7.0.141-2.6.10.5.el7.x86_64
+rpm -e --nodeps java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64

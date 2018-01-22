@@ -1,0 +1,16 @@
+clean tomcat7:run
+
+启动tomcat：
+/usr/local/apache-tomcat-8.5.24/bin/startup.sh
+
+
+关闭tomcat：
+/usr/local/apache-tomcat-8.5.24/bin/shutdown.sh
+
+
+
+重启tomcat，先关闭，再启动
+
+
+查看tomcat是否启动命令
+ps -ef|grep tomcat

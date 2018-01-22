@@ -1,0 +1,6 @@
+找到从服务器中的redis.conf
+如：
+1. cd /usr/local/redis/etc
+2. gedit redis.conf
+3. 找到 slaveof <masterip> <masterport>
+	如：slaveof 192.168.76.101 6379

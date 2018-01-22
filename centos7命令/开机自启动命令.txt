@@ -1,0 +1,38 @@
+在opt文件下新建文件autostart.sh（/opt 主机额外安装软件所摆放的目录。默认是空的。 一般安装软件的时候,可以自己指定安装到这个目录下,便于查找和管理）
+
+cd /opt
+如果没有则新建：touch autostart.sh
+gedit autostart.sh
+
+
+文件内容，如：
+#!/bin/bash  
+#description:开机自启脚本  
+export JDK_HOME=/usr/java/jdk1.8.0_152
+export JAVA_HOME=/usr/java/jdk1.8.0_152
+/usr/local/apache-tomcat-8.5.24/bin/startup.sh #启动tomcat 
+
+
+赋予脚本可执行权限：
+chmod +x /opt/autostart.sh
+
+打开/etc/rc.d/rc.local文件，gedit /etc/rc.d/rc.local
+
+在local文件末尾增加如下内容：/opt/autostart.sh 
+
+
+在centos7中，/etc/rc.d/rc.local的权限被降低了，所以需要执行如下命令赋予其可执行权限：
+chmod +x /etc/rc.d/rc.local
+
+
+猜测可能的原因：1、执行那个脚本时，缺乏某些环境变量导致程序或动态库无法被找到。2、启动脚本和之后执行的脚本不是同一种shell，有语法差异。我也不知道有哪些牛x日志系统能做到记录这些启动时的错误信息。那么就自己动手丰衣足食。把你的脚本单独存进一个文件例如叫/usr/test.sh 。在rc.loacl 里这样写一行/bin/bash  /usr/test.sh  1>> /usr/mylog    2>&1这个测试后可用，日志是非覆盖模式。
+
+
+
+
+参考文档链接：http://blog.csdn.net/u014242496/article/details/71412721
+
+
+
+
+

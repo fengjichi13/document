@@ -1,0 +1,28 @@
+
+# 查看mysql是否启动
+service mysqld status
+
+# 启动mysql
+service mysqld start
+
+# 停止mysql
+service mysqld stop
+
+# 重启mysql
+service mysqld restart
+
+
+# 登录mysql，之后需要输入密码
+mysql -p
+
+# 设置新密码
+set password = password("Root_111111");
+
+2.GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'Root_111111' WITH GRANT OPTION;
+3. FLUSH PRIVILEGES;
+
+
+# 退出当前登录
+quit;
+
+

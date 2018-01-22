@@ -1,0 +1,54 @@
+在一台机器中配置即可
+
+mkdir rocketmq-console
+
+unzip rocketmq-console.war -d rocketmq-console
+
+
+把rocketmq-console拷贝到tomcat的webapps下
+mv /usr/local/software/rocketmq-console/ /usr/local/apache-tomcat-8.5.24/webapps
+
+
+进入  rocketmq-console/WEB-INF/classes修改 config.properties
+cd /usr/local/software/rocketmq-console/WEB-INF/classes
+gedit /usr/local/apache-tomcat-8.5.24/webapps/rocketmq-console/WEB-INF/classes/config.properties
+
+
+修改地址：rocketmq.namesrv.addr
+
+双主机：
+如：rocketmq.namesrv.addr=192.168.18.141:9876;192.168.18.142:9876
+或者：rocketmq.namesrv.addr=192.168.3.141:9876;192.168.3.142:9876
+两主两从：
+如：rocketmq.namesrv.addr=192.168.3.141:9876;192.168.3.142:9876;192.168.3.143:9876;192.168.3.144:9876
+或者：rocketmq.namesrv.addr=192.168.18.141:9876;192.168.18.142:9876;192.168.18.143:9876;192.168.18.144:9876
+
+
+启动tomcat：
+/usr/local/apache-tomcat-8.5.24/bin/startup.sh
+
+
+关闭tomcat：
+/usr/local/apache-tomcat-8.5.24/bin/shutdown.sh
+
+查看rocketmq-console控制台
+http://192.168.3.141:8080/rocketmq-console
+http://192.168.3.141:8080/rocketmq-console/cluster/list.do
+
+查看tomcat日志：
+tail -f -n 100 /usr/local/apache-tomcat-8.5.24/logs/catalina.out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

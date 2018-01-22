@@ -1,0 +1,10 @@
+打开redis.conf
+gedit /usr/local/redis/etc/redis.conf
+
+找到appendonly no，改为appendonly yes
+
+appendfilename "appendonly.aof"可以改你喜欢的文件名
+
+appendfsync always  #开启集群的时候使用这个选择，不用担心性能
+# appendfsync everysec
+# appendfsync no

@@ -1,0 +1,4 @@
+
+cd /usr/local/apache-tomcat-8.5.24/logs
+
+tail -f catalina.out

@@ -1,0 +1,28 @@
+启动命令：
+/usr/local/redis/bin/redis-server /usr/local/redis/etc/sentinel.conf --sentinel &
+
+查看哨兵信息：
+/usr/local/redis/bin/redis-cli -h 192.168.76.102 -p 26379 info Sentinel
+
+强制停掉
+kill –9 命令值 
+
+
+配置：
+
+在任意一台从服务器中找到sentinel.conf文件，把他拷到/usr/local/redis/etc文件下
+cp sentinel.conf /usr/local/redis/etc
+
+打开sentinel.conf文件
+gedit sentinel.conf
+
+
+
+原文件中的dir /tmp是放置日志的地方，可以修改为：dir /usr/local/redis/etc
+
+原文件中的sentinel monitor mymaster 127.0.0.1 6379 2的2代表投票选举次数
+修改为master机器的ip:sentinel monitor mymaster 192.168.76.101 6379 1
+
+原文件中的sentinel down-after-milliseconds mymaster 30000 多久监控一次，30000代表30秒
+
+
