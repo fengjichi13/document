@@ -20,7 +20,50 @@ ls /
 第二步
 修改solrhome下的solr.xml文件，指定当前实例运行的ip地址及端口号。
 
+
+vi /usr/local/sorl/solrhome/solr.xml
+ 
+
 host修改为{host:192.168.18.201}
 hostPort修改为{jetty.port:8080}
+
+
+第三步
+修改每一台solr的tomcat 的 bin目录下catalina.sh文件中加入DzkHost指定zookeeper服务器地址： 
+JAVA_OPTS="-DzkHost=192.168.18.191:2181,192.168.18.192:2181,192.168.18.193:2181"
+（可以使用vim的查找功能查找到JAVA_OPTS的定义的位置，然后添加）
+
+命令：
+cd /usr/local/apache-tomcat-8.5.24/bin
+
+vi catalina.sh
+
+
+加在这个地方：
+# Uncomment the following line to make the umask available when using the
+# org.apache.catalina.security.SecurityListener
+#JAVA_OPTS="$JAVA_OPTS -Dorg.apache.catalina.security.SecurityListener.UMASK=`umask`"
+
+JAVA_OPTS="-DzkHost=192.168.18.191:2181,192.168.18.192:2181,192.168.18.193:2181"
+
+第四步
+重新启动tomcat
+
+
+第五步
+创建一个两片的collection，每片是一主一备。
+
+使用以下命令创建：
+http://192.168.18.201:8080/solr/admin/collections?action=CREATE&name=collection2&numShards=2&replicationFactor=2
+
+
+第六步
+删除collection1.
+http://192.168.18.201:8080/solr/admin/collections?action=DELETE&name=collection1
+
+
+
+
+
 
 
