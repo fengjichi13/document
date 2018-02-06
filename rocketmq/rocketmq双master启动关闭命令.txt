@@ -1,7 +1,9 @@
 启动NameServer，BrokerServer 
 cd /usr/local/rocketmq/bin
-两台机器：
+两台机器执行启动nameserver：
 nohup sh mqnamesrv &
+
+分别执行启动broker：
 master1：
 nohup sh mqbroker -c /usr/local/rocketmq/conf/2m-noslave/broker-a.properties >/dev/null 2>&1 &
 master2：
