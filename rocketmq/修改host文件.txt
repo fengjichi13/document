@@ -1,0 +1,19 @@
+﻿vi /etc/hosts
+
+双master:
+192.168.18.148 rocketmq-nameserver1
+192.168.18.148 rocketmq-master1
+192.168.18.149 rocketmq-nameserver2
+192.168.18.149 rocketmq-master2
+
+
+双master双slaver:
+
+192.168.18.141 rocketmq-nameserver1
+192.168.18.141 rocketmq-master1
+192.168.18.142 rocketmq-nameserver2
+192.168.18.142 rocketmq-master2
+192.168.18.143 rocketmq-nameserver3
+192.168.18.143 rocketmq-master1-slave
+192.168.18.144 rocketmq-nameserver4
+192.168.18.144 rocketmq-master2-slave

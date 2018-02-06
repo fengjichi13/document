@@ -6,9 +6,8 @@ cd /usr/local/rocketmq/conf
 两主两从，同步双写：2m-2s-sync
 双master：2m-noslave
 
-进入2m-2s-async文件夹
-两主两从，异步复制：
-cd 2m-2s-async
+进入2m-noslave文件夹
+双master：2m-noslave
 
 把properties文件全部用“properties配置文件”里面的数据替换，然后再各个修改
 要修改的地方：
