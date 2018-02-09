@@ -1,0 +1,26 @@
+myeclipse2016 git操作
+1、从github获取项目
+
+Import -> Git -> Projects from Git ->Clone URI 填写github上的项目https网址即可。
+
+2、提交github
+
+右键项目 team - > Commit ->  Commit and Pust 既Commit 到本地仓库，又Push 到远程github
+
+3、单个文件回滚（本地）
+
+右键文件 team -> Show Local History  在右侧 Revison Time栏里 选择欲回滚版本  -> 右键  get Contents
+
+4、整体项目回滚（本地）
+
+右键项目 team - > Show in History  在右侧History栏里，选择欲回滚版本 右键 -> Reset -> 选Hard模式即可。另外两个没试验过。
+
+5、回滚后，想恢复原高版本（本地）
+
+右键项目 team -> pull 拉至原最新版本，在History中所有操作的版本又都出来了。
+
+6、建立分支 合并 
+
+建立：右键项目 team -> Switch to ->New Branch 建立一个新的分支。新的分支可以进行添加 修改等操作。然后 Commit 到本地，并push到github
+
+合并： swith to master，然后 Merge -> 选Local 下面的分支，然后ok 。这样就在本地合并了。Push Branch Master 可以push到github

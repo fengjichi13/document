@@ -1,0 +1,8 @@
+tomcat启动命令：clean tomcat7:run
+
+clean install
+tomcat里面没有此工程，首次部署：clean tomcat7:deploy或者tomcat7:deploy，显示debug消息tomcat7:deploy -X
+tomcat里面有此工程，clean tomcat7:redeploy或者tomcat7:redeploy,例如要部署到tomcat的root文件夹，root文件夹已经存在，则使用redeploy
+
+显示debug消息，如：tomcat7:deploy -X
+跳过test，后面加:-DskipTests，如clean tomcat7:redeploy -DskipTests
